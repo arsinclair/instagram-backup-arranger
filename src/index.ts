@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { processStories } from "./process-stories.js";
 import { processPosts } from "./process-posts.js";
 

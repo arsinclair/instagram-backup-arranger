@@ -1,4 +1,3 @@
-import "dotenv/config";
 import { mkdir, readFile, writeFile } from "fs/promises";
 import { resolve } from "path";
 import { InstagramStories, InstagramStory } from "./types/InstagramStory.js";
@@ -43,7 +42,7 @@ export const processStories = async () => {
         throw new Error('Please set INSTAGRAM_BACKUP_PATH and OUTPUT_DIR in .env file');
     }
 
-    console.log('Reading backup...');
+    console.log('Reading stories backup...');
     const storiesPath = resolve(process.env.INSTAGRAM_BACKUP_PATH, 'your_instagram_activity/content/stories.json');
 
     const backup = await readFile(storiesPath, 'utf-8');
@@ -67,13 +66,8 @@ export const processStories = async () => {
         switch (mediaType) {
             case MediaType.ToBeInferred: {
                 const extension = await inferFileExtension(initialLocalFilePath);
-                if (extension) {
-                    sourceFilePath = initialLocalFilePath;
-                    outputFilePath = resolve(storiesOutputDir!, fileName + "." + extension);
-                }
-                else {
-                    console.error(`Could not infer file extension for ${initialLocalFilePath}`);
-                }
+                sourceFilePath = initialLocalFilePath;
+                outputFilePath = resolve(storiesOutputDir!, fileName + extension);
                 break;
             }
             case MediaType.Image: {
