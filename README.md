@@ -10,3 +10,11 @@ Requires the following tools pre-installed:
 - Some images are exported in .webp format and some in .jpg; it's not consistent;
 - Some Media URIs in the _stories.json_ won't point to a local file, but instead to a remote instagram CDN. When tried accessing such remote file, the Instagram CDN would return a 403 error indicating that a hash has expired. Such stories are also not displayed correctly in the Story Archive of the official Instagram app. The most likely cause for this seems to be a case when the story is a repost of a reel that has since been taken down;
 - the textual content is encoded in latin1 on the server, but the JSON returned is utf-8 and they don't do a proper conversion, so any textual content we have to decode back to latin1, then properly encode it to utf-8.
+
+### Run the tool
+
+1. Request an Instagram Data export in JSON format;
+2. Extract the archive received in a new folder and change the paths in `.env` file to point to that folder;
+3. Run `pnpm start`.
+
+The result of the conversion will be saved in an `output/` folder.
